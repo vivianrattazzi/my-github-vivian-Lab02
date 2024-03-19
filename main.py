@@ -1,12 +1,12 @@
 import translator as tr
-t = tr.Translator('dizionario')
-
+t = tr.Translator()
+file = 'dictionary.txt'
 
 while(True):
 
     t.printMenu()
 
-    #t.loadDictionary("")
+    t.loadDictionary(file)
 
     txtIn = input("Inserisci un opzione: ")
 
@@ -14,21 +14,26 @@ while(True):
 
     if int(txtIn) == 1:
         print("Ok, quale parola devo aggiungere?")
-        txtIn = input("Scrivi qui: ")
-        parolaAggiunta = txtIn.lower()
-        t.handleAdd(parolaAggiunta)
+        txt = input("Scrivi qui: ")
+
+        parolaDaAggiungere = txt.replace(" ", "")
+        if parolaDaAggiungere.isalpha():
+            t.handleAdd(txt.lower())
+            print("Aggiunta!")
 
     if int(txtIn) == 2:
         print("Ok, di quale parola vuoi conoscere la traduzione?")
-        txtIn = input("Scrivi qui: ")
-        parolaAliena = txtIn.lower().strip()
-        if parolaAliena.isalpha():#mi assicuro di avere solo caratteri alfabetici
-        #metto la funzione che mi traduce la parola aliena in italiano
-            print(t.handleTranslate(parolaAliena))
+        txt = input("Scrivi qui: ")
+        if txt.isalpha():
+            print(t.handleTranslate(txt.lower()))
 
     if int(txtIn) == 3:
         print("Ok, quale parola devo cercare?")
-        txtIn = input("Scrivi qui: ")
-        pass
+        txt = input("Scrivi qui: ")
+        t.handleWildCard(txt)
+
     if int(txtIn) == 4:
+        print(t.loadDictionary(file))
+
+    if int(txtIn) == 5:
         break
